@@ -31,7 +31,22 @@ public class ProductDataAccess {
         }
         return searchStratement; 
     }
-
+    public boolean cheklogin(String username, String password){
+        try{
+             Connection connection = new DBConnnection().getConnection();
+             searchStratement  = 
+                    connection.prepareStatement("SELECT username, password FROM USERS WHERE username=? AND password=? ");
+                   searchStratement.setString(1, username);
+                   searchStratement.setString(2, password);
+            searchStratement.execute();
+            return true;
+                   
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+        
+    }
     public List<Product> getProductsByName(String name) {
         try{
             PreparedStatement sataement = getSearchStratement();
